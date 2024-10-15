@@ -71,17 +71,29 @@ function alterarContexto(contexto) {
 }
 
 const contagemRegressiva = () => {
+    if(tempoDecorridoEmSegundos <= 0) {
+        zerar()
+        alert('tempo finalizado')
+        return 
+    }
     tempoDecorridoEmSegundos -= 1
     console.log('tempo: ' + tempoDecorridoEmSegundos)
 }
 
-startPauseBt.addEventListener('click', contagemRegressiva) 
+startPauseBt.addEventListener('click', iniciar) 
 
 function iniciar() {
+    if(intervaloId) {
+        zerar()
+        return
+    }
     intervaloId = setInterval(contagemRegressiva, 1000)
 }
 
-
+function zerar () {
+    clearInterval(intervaloId)
+    intervaloId = null
+}
 
 
 
