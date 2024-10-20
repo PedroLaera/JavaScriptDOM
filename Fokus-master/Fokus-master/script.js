@@ -8,12 +8,15 @@ const titulo = document.querySelector('.app__title')
 const button = document.querySelectorAll('.app__card-button')
 const startPauseBt = document.querySelector('#start-pause')
 const musicaFocoInput = document.querySelector('#alternar-musica')
+const startorPauseBt = document.querySelector('#start-pause span')
+const tempoNaTela = document.querySelector('#timer')
+
 const musica = new Audio ('sons/luna-rise-part-one.mp3')
 const audioPlay =  new Audio ('sons/play.wav')
 const audioPause =  new Audio ('sons/pause.mp3')
 const audioZero = new Audio ('sons/beep.mp3')
 
-let tempoDecorridoEmSegundos = 5
+let tempoDecorridoEmSegundos = 1500
 let intervaloId = null
 
 
@@ -78,14 +81,13 @@ function alterarContexto(contexto) {
 
 const contagemRegressiva = () => {
     if(tempoDecorridoEmSegundos <= 0) {
-        audioZero.play () =
+        ///audioZero.play () =
         alert('tempo finalizado')
         zerar()
         return 
     }
     tempoDecorridoEmSegundos -= 1
-    console.log('tempo: ' + tempoDecorridoEmSegundos)
-    console.log('Id: ' + intervaloId)
+    mostrarTempo()
 }
 
 
@@ -97,30 +99,31 @@ function iniciar() {
         zerar()
         return
     }
-    audioPause.play();
+    audioPlay.play();
     intervaloId = setInterval(contagemRegressiva, 1000)
+    startPauseBt.textContent = "Pausar"
+    startPauseBt.setAttribute('src','imagem/pause.png')
 }
 
 function zerar () {
     clearInterval(intervaloId)
+    startPauseBt.textContent = "Começar"
+    startPauseBt.setAttribute('src','imagem/play_arrow.png')
     intervaloId = null
+    
 }
 
+function mostrarTempo() {
+    const tempo = tempoDecorridoEmSegundos 
+    tempoNaTela.innerHTML = `${tempo}`
+}
 
-
-
+mostrarTempo();
 
 
 // const htmls = document.querySelector('html');
 // const displayTempo = document.querySelector('#timer');
 
-
-
-
-
-
-
-
-const duracaoFoco = 1500; 
-const duracaoDescansoCurto = 300; 
-const duracaoDescansoLongo = 900; 
+    //const duracaoFoco = 1500; 
+    //const duracaoDescansoCurto = 300; 
+    //const duracaoDescansoLongo = 900; 
