@@ -34,21 +34,25 @@ musicaFocoInput.addEventListener('change', () => {
 
 
 focoBt.addEventListener('click', () => {
+    tempoDecorridoEmSegundos = 1500
     alterarContexto('foco')
     focoBt.classList.add('active')
 })
 
 curtoBt.addEventListener('click', () => {
+    tempoDecorridoEmSegundos = 300
     alterarContexto('descanso-curto')
     curtoBt.classList.add('active')
 })
 
 longoBt.addEventListener('click', () => {
+    tempoDecorridoEmSegundos = 900
     alterarContexto('descanso-longo')
     longoBt.classList.add('active')
 })
 
 function alterarContexto(contexto) {
+    mostrarTempo()
     button.forEach(function (contexto){
         contexto.classList.remove('active')
     })
@@ -81,7 +85,7 @@ function alterarContexto(contexto) {
 
 const contagemRegressiva = () => {
     if(tempoDecorridoEmSegundos <= 0) {
-        ///audioZero.play () =
+        audioZero.play () =
         alert('tempo finalizado')
         zerar()
         return 
@@ -114,8 +118,9 @@ function zerar () {
 }
 
 function mostrarTempo() {
-    const tempo = tempoDecorridoEmSegundos 
-    tempoNaTela.innerHTML = `${tempo}`
+    const tempo =  new Date(tempoDecorridoEmSegundos * 1000)
+    const tempoFormatado = tempo.toLocaleTimeString('pt-br', {minute: '2-digit', second: '2-digit'})
+    tempoNaTela.innerHTML = `${tempoFormatado}`
 }
 
 mostrarTempo();
